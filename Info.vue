@@ -1,36 +1,39 @@
 <template>
-  <div class="user-home">
-    <el-descriptions class="user-info" title="个人信息" :column="2" :size="size" border>
-      <template slot="extra">
-        <el-button type="primary" size="small">操作</el-button>
-      </template>
-      <el-descriptions-item label="邮箱"><i class="el-icon-s-promotion"></i> {{ email }}</el-descriptions-item>
-      <el-descriptions-item label="用户名"><i class="el-icon-user-solid"></i> {{ name }}</el-descriptions-item>
-      <el-descriptions-item label="密码"><i class="el-icon-star-on"></i> *******</el-descriptions-item>
-      <el-descriptions-item label="是否违规"><i class="el-icon-s-home"></i> {{ violate == '1' ? "是" : '否' }}</el-descriptions-item>
-    </el-descriptions>
-
-    <el-table :data="appointments" class="appointments-table" border>
-      <el-table-column prop="c_name" label="自习室名称"></el-table-column>
-      <el-table-column prop="s_name" label="座位名称"></el-table-column>
-      <el-table-column prop="start_time" label="开始时间"></el-table-column>
-      <el-table-column prop="end_time" label="结束时间"></el-table-column>
-      <el-table-column label="倒计时">
-        <template v-slot="scope">
-          <span>{{ getRemainingTime(scope.row) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template v-slot="scope">
-          <el-button type="primary" size="small" :disabled="scope.row.is_check_in" @click="signIn(scope.row)">签到</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template v-slot="scope">
-          <el-button type="primary" size="small" @click="cancelSignIn(scope.row)">取消</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+  <div class="user_home_body">
+    <div class="container">
+      <h1>用户个人信息</h1>
+      <el-descriptions class="margin-top" title="" :column="1" :size="size" border>
+        <!-- 可以在这里添加其他操作按钮，如果需要的话 -->
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-s-promotion"></i>
+            邮箱
+          </template>
+          {{email}}
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-user-solid"></i>
+            用户名
+          </template>
+          {{name}}
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-star-on"></i>
+            密码
+          </template>
+          *******
+        </el-descriptions-item>
+        <el-descriptions-item>
+          <template slot="label">
+            <i class="el-icon-s-home"></i>
+            是否违规
+          </template>
+          {{violate == '1' ? "是" : '否'}}
+        </el-descriptions-item>
+      </el-descriptions>
+    </div>
   </div>
 </template>
 
@@ -254,48 +257,68 @@ export default {
 </script>
 
 <style scoped>
-.user-home {
-  padding: 20px;
-  background: linear-gradient(to bottom, #f0f9ff, #cbebff); /* 确保背景渐变一致 */
-  min-height: 100vh;
-  font-family: 'Roboto', sans-serif; /* 统一字体 */
-}
+  .user_home_body {
+    min-height: 100vh;
+    background: linear-gradient(to right, #74ebd5, #acb6e5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
 
-.user-info {
-  margin-bottom: 30px;
-}
+  .container {
+    width: 100%;
+    max-width: 800px; /* 根据需要调整最大宽度 */
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+  }
 
-.el-descriptions-item {
-  font-size: 16px; /* 统一字体大小 */
-}
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
 
-.el-icon {
-  margin-right: 10px;
-  color: #108ee9; /* 统一图标颜色 */
-}
+  .el-descriptions {
+    width: 100%;
+    border-radius: 5px;
+  }
 
-.appointments-table th {
-  background-color: #2c3e50; /* 统一表头背景色 */
-  color: white;
-}
+  .el-descriptions__header {
+    background-color: #2c3e50;
+    color: white;
+    font-size: 20px;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+  }
 
-.appointments-table td {
-  background-color: #ffffff;
-  color: #333; /* 统一表格文字颜色 */
-}
+  .el-descriptions-item {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+  }
 
-.el-button {
-  margin-top: 5px;
-  border-radius: 4px; /* 统一按钮圆角 */
-}
+  .el-descriptions-item:last-child {
+    border-bottom: none;
+  }
 
-.el-button[type="primary"] {
-  background-color: #108ee9;
-  border-color: #108ee9; /* 统一按钮主色调 */
-}
+  .el-descriptions-item label {
+    color: #333;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+  }
 
-.el-button[type="primary"]:hover {
-  background-color: #0077b5;
-  border-color: #0077b5; /* 统一按钮悬停颜色 */
-}
+  .el-icon {
+    color: #3498db;
+    margin-right: 10px;
+    font-size: 22px;
+  }
+
+  .el-descriptions-item:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
 </style>
