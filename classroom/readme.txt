@@ -1,0 +1,1 @@
+后端采用flask+mongoDb，前端采用Vue框架。使用docker部署。
