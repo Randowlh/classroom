@@ -26,8 +26,8 @@
                                             src="https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eoM6WDpQlUMDAxqvq3iaXsx9OlqFKAcWZ7w5hbLb5fKqvcWYPCxTtydelytE6740jicEFAP3iaCAU6Ag/132"
                                             alt="头像加载失败">
                 </template>
-                <el-menu-item index="3-1" @click="goPage('/userSignIn')">查看个人信息</el-menu-item>
-                <el-menu-item index="3-2" @click="logout()">退出</el-menu-item>
+                <el-menu-item index="3-1" @click="goPage('/userInfo/:id')">查看个人信息</el-menu-item>
+                <el-menu-item index="3-2" @click="goPage('/')">退出</el-menu-item>
               </el-submenu>
             </el-menu>
           </el-header>

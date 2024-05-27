@@ -1,66 +1,39 @@
 <template>
-    <div>
-      <el-descriptions class="margin-top" title="个人信息" :column="2" :size="size" border>
-        <template slot="extra">
-          <el-button type="primary" size="small">操作</el-button>
-        </template>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-s-promotion"></i>
-            邮箱
-          </template>
-          {{email}}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-user-solid"></i>
-            用户名
-          </template>
-          {{name}}
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-star-on"></i>
-            密码
-          </template>
-          *******
-        </el-descriptions-item>
-        <el-descriptions-item>
-          <template slot="label">
-            <i class="el-icon-s-home"></i>
-            是否违规
-          </template>
-          {{violate == '1' ? "是" : '否'}}
-        </el-descriptions-item>
-      </el-descriptions>
+  <div class="user-home">
+    <el-descriptions class="user-info" title="个人信息" :column="2" :size="size" border>
+      <template slot="extra">
+        <el-button type="primary" size="small">操作</el-button>
+      </template>
+      <el-descriptions-item label="邮箱"><i class="el-icon-s-promotion"></i> {{ email }}</el-descriptions-item>
+      <el-descriptions-item label="用户名"><i class="el-icon-user-solid"></i> {{ name }}</el-descriptions-item>
+      <el-descriptions-item label="密码"><i class="el-icon-star-on"></i> *******</el-descriptions-item>
+      <el-descriptions-item label="是否违规"><i class="el-icon-s-home"></i> {{ violate == '1' ? "是" : '否' }}</el-descriptions-item>
+    </el-descriptions>
 
-    <el-table :data="appointments" border>
+    <el-table :data="appointments" class="appointments-table" border>
       <el-table-column prop="c_name" label="自习室名称"></el-table-column>
       <el-table-column prop="s_name" label="座位名称"></el-table-column>
       <el-table-column prop="start_time" label="开始时间"></el-table-column>
       <el-table-column prop="end_time" label="结束时间"></el-table-column>
       <el-table-column label="倒计时">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <span>{{ getRemainingTime(scope.row) }}</span>
         </template>
       </el-table-column>
-
       <el-table-column label="操作">
-        <template slot-scope="scope">
-          <!-- <el-button type="primary" size="small" @click="stopCountdown(scope.row)">签到</el-button> -->
-          <el-button type="primary" size="small" :disabled="scope.row.is_check_in ? true : false" @click="signIn(scope.row)">签到</el-button>
+        <template v-slot="scope">
+          <el-button type="primary" size="small" :disabled="scope.row.is_check_in" @click="signIn(scope.row)">签到</el-button>
         </template>
       </el-table-column>
-
       <el-table-column label="操作">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button type="primary" size="small" @click="cancelSignIn(scope.row)">取消</el-button>
         </template>
       </el-table-column>
-
     </el-table>
   </div>
 </template>
+
 
 <script>
 import { getUserInfoById, cancelByPid, singInByPid } from '../../network/index';
@@ -279,3 +252,50 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.user-home {
+  padding: 20px;
+  background: linear-gradient(to bottom, #f0f9ff, #cbebff); /* 确保背景渐变一致 */
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif; /* 统一字体 */
+}
+
+.user-info {
+  margin-bottom: 30px;
+}
+
+.el-descriptions-item {
+  font-size: 16px; /* 统一字体大小 */
+}
+
+.el-icon {
+  margin-right: 10px;
+  color: #108ee9; /* 统一图标颜色 */
+}
+
+.appointments-table th {
+  background-color: #2c3e50; /* 统一表头背景色 */
+  color: white;
+}
+
+.appointments-table td {
+  background-color: #ffffff;
+  color: #333; /* 统一表格文字颜色 */
+}
+
+.el-button {
+  margin-top: 5px;
+  border-radius: 4px; /* 统一按钮圆角 */
+}
+
+.el-button[type="primary"] {
+  background-color: #108ee9;
+  border-color: #108ee9; /* 统一按钮主色调 */
+}
+
+.el-button[type="primary"]:hover {
+  background-color: #0077b5;
+  border-color: #0077b5; /* 统一按钮悬停颜色 */
+}
+</style>

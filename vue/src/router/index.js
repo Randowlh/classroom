@@ -13,7 +13,7 @@ const UserHome = () => import('../views/user/home/Home')
 const UserClassroom = () => import('../views/user/Classroom')
 const UserSelect = () => import('../views/user/Select')
 const UserSignIn = () => import('../views/user/SignIn')
-
+const UserInfo = () => import('../views/user/Info')
 Vue.use(VueRouter)
 
 const routes = [
@@ -66,12 +66,16 @@ const routes = [
             {
                 path: '/userSignIn/:id',
                 component: UserSignIn
+            },
+            {
+                path: '/userInfo/:id',
+                component: UserInfo
             }
         ]
     }
 ]
 
-const router = new VueRouter({
+const router = new VueRouter({ 
     routes,
     mode: 'hash'
 })
